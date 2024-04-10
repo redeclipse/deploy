@@ -1,4 +1,4 @@
-FROM ubuntu:bionic
+FROM ubuntu:focal
 
 
 
@@ -18,10 +18,11 @@ RUN apt update && \
     wget \
     lsb-release \
     gnupg \
-    gcc-11 \
-    g++-11 \
+    gcc-13 \
+    g++-13 \
     make
 
+ENV CI_DIR=/ci
 WORKDIR ${CI_DIR}
 
 
@@ -32,9 +33,9 @@ WORKDIR ${CI_DIR}
 
 
 
-ENV SDK_VER=10.0.22000.196
-ENV VS_VER=16
-ENV LLVM_VER=14
+ENV SDK_VER=10.0.22621.3233
+ENV VS_VER=17
+ENV LLVM_VER=18
 
 RUN wget https://apt.llvm.org/llvm.sh && \
     chmod +x llvm.sh && \
@@ -44,7 +45,6 @@ RUN wget https://apt.llvm.org/llvm.sh && \
     ln -s /usr/bin/llvm-rc-${LLVM_VER} /usr/bin/llvm-rc && \
     ln -s /usr/bin/lld-${LLVM_VER} /usr/bin/lld
 
-ENV CI_DIR=/ci
 ENV MANIFEST_DIR=${CI_DIR}/sys_manifests
 ENV ARCHIVE_DIR=${CI_DIR}/sys_archives
 ENV SDK_ARCHIVE_DIR=${ARCHIVE_DIR}/sdk
@@ -90,8 +90,8 @@ RUN apt update && \
 
 
 
-RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 30 && \
-    update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 30 && \
+RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-13 30 && \
+    update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-13 30 && \
     update-alternatives --install /usr/bin/cc cc /usr/bin/gcc 30 && \
     update-alternatives --set cc /usr/bin/gcc && \
     update-alternatives --install /usr/bin/c++ c++ /usr/bin/g++ 30 && \

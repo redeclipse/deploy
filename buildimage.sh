@@ -1,2 +1,2 @@
 docker build . \
-    -t q009/redeclipse_build:v1.1.0
+    -t q009/redeclipse_build:v1.2.0
